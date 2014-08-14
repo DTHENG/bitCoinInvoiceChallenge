@@ -1,6 +1,8 @@
 package com.dtheng.bitcoin.core;
 
+import com.dtheng.bitcoin.model.BitPay;
 import com.dtheng.bitcoin.model.BitPayResponse;
+import com.dtheng.bitcoin.model.Invoice;
 import com.dtheng.bitcoin.util.ShellUtil;
 import com.dtheng.bitcoin.util.WebUtil;
 import com.google.gson.Gson;
@@ -37,22 +39,26 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
+        BitPay bitpay = new BitPay(Config.getProperty("bitpay_access_token"), "USD");
+
         if (req.getParameterMap().containsKey("create")) {
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    ShellUtil.getNewProcess("new.sh",
-                            req.getParameter("value"),
-                            Config.getProperty("bitpay_access_token"),
-                            Config.getProperty("bitpay_password")).getInputStream()));
-            String inputLine;
-            StringBuilder resp = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                resp.append(inputLine);
-            }
-            in.close();
+            Invoice invoice = bitpay.createInvoice(Double.parseDouble(req.getParameter("value")));
 
-            Gson gson = new Gson();
-            BitPayResponse response = gson.fromJson(resp.toString(), new TypeToken<BitPayResponse>() {}.getType());
+            BitPayResponse response = new BitPayResponse();
+
+            response.btcPrice = invoice.getBtcPrice();
+            response.status = invoice.getStatus();
+            response.price = invoice.getPrice();
+            response.currency = invoice.getCurrency();
+            response.url = invoice.getUrl();
+            response.currentTime = invoice.getCurrentTime();
+            response.rate = invoice.getRate();
+            response.exceptionStatus = invoice.hasExceptionStatus();
+            response.expirationTime = invoice.getExpirationTime();
+            response.btcPaid = invoice.getBtcPaid();
+            response.invoiceTime = invoice.getInvoiceTime();
+            response.id = invoice.getId();
 
             Document url = Jsoup.connect(response.url).get();
 
@@ -60,35 +66,38 @@ public class Servlet extends HttpServlet {
 
                 if (elm.attr("href").toString().contains("bitcoin:")) {
                     String href = elm.attr("href");
-                    System.out.println(href);
                     response.address = href.substring(href.indexOf(":") +1, href.indexOf("?"));
                     break;
                 }
             }
 
-            if (!response.exceptionStatus) {
+            if ( ! response.exceptionStatus) {
+                res.getWriter().write(new Gson().toJson(response));
                 res.setContentType("application/json");
                 return;
             }
             return;
         }
 
-        if (req.getParameterMap().containsKey("id")) {
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(ShellUtil.getNewProcess("status.sh",
-                            req.getParameter("id"),
-                            Config.getProperty("bitpay_access_token"),
-                            Config.getProperty("bitpay_password")).getInputStream()));
-            String inputLine;
-            StringBuilder resp = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
-                resp.append(inputLine);
-            }
-            in.close();
+        String id = req.getParameter("id");
 
-            Gson gson = new Gson();
-            BitPayResponse response = gson.fromJson(resp.toString(), new TypeToken<BitPayResponse>(){}.getType());
+        if (id != null) {
+            Invoice invoice = bitpay.getInvoice(id);
+
+            BitPayResponse response = new BitPayResponse();
+
+            response.btcPrice = invoice.getBtcPrice();
+            response.status = invoice.getStatus();
+            response.price = invoice.getPrice();
+            response.currency = invoice.getCurrency();
+            response.url = invoice.getUrl();
+            response.currentTime = invoice.getCurrentTime();
+            response.rate = invoice.getRate();
+            response.exceptionStatus = invoice.hasExceptionStatus();
+            response.expirationTime = invoice.getExpirationTime();
+            response.btcPaid = invoice.getBtcPaid();
+            response.invoiceTime = invoice.getInvoiceTime();
+            response.id = invoice.getId();
 
             Document url = Jsoup.connect(response.url).get();
 
@@ -96,20 +105,20 @@ public class Servlet extends HttpServlet {
 
                 if (elm.attr("href").toString().contains("bitcoin:")) {
                     String href = elm.attr("href");
-                    System.out.println(href);
 
-                    response.address = href.substring(href.indexOf(":") +1, href.indexOf("?"));
+                    response.address = href.substring(href.indexOf(":") + 1, href.indexOf("?"));
                     break;
                 }
             }
 
             if (!response.exceptionStatus) {
-                res.getWriter().write(gson.toJson(response));
+                res.getWriter().write(new Gson().toJson(response));
                 res.setContentType("application/json");
                 return;
             }
-
         }
+
+
         //res.sendRedirect(WebUtil.buildUrl(req, "/"));
     }
 }

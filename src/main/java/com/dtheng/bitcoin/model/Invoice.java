@@ -16,15 +16,29 @@ public class Invoice {
 	private String btcPrice;
 	private String price;
 	private String currency;
+    private long currentTime;
+    private double rate;
+    private boolean exceptionStatus;
+    private long expirationTime;
+    private String btcPaid;
+    private long invoiceTime;
 	
 	public Invoice(JSONObject finalResult) throws JSONException{
-		
+
 		this.id = (String) finalResult.get("id");
 		this.url = (String) finalResult.get("url");
 		this.status = (String) finalResult.get("status");
 		this.btcPrice = (String) finalResult.get("btcPrice");
 		this.price = finalResult.get("price").toString();
 		this.currency = (String) finalResult.get("currency");
+        this.currentTime = Long.parseLong(finalResult.get("currentTime").toString());
+        this.rate = Double.parseDouble(finalResult.get("rate").toString());
+        this.exceptionStatus = Boolean.parseBoolean(finalResult.get("exceptionStatus").toString());
+        this.expirationTime = Long.parseLong(finalResult.get("expirationTime").toString());
+        this.btcPaid = finalResult.get("btcPaid").toString();
+        this.invoiceTime = Long.parseLong(finalResult.get("invoiceTime").toString());
+
+
 	}
 	
 	public String getId() {
@@ -39,9 +53,8 @@ public class Invoice {
 		return status;
 	}
 
-	public double getBtcPrice() {
-		double val = Double.parseDouble(this.btcPrice);
-		return val;
+	public String getBtcPrice() {
+		return this.btcPrice;
 	}
 
 	public double getPrice() {
@@ -52,5 +65,19 @@ public class Invoice {
 	public String getCurrency() {
 		return currency;
 	}
+
+    public long getCurrentTime() { return currentTime; }
+
+    public double getRate() { return rate; }
+
+    public boolean hasExceptionStatus() {
+        return exceptionStatus;
+    }
+
+    public long getExpirationTime() { return expirationTime; }
+
+    public String getBtcPaid() { return btcPaid; }
+
+    public long getInvoiceTime() { return invoiceTime; }
 
 }
