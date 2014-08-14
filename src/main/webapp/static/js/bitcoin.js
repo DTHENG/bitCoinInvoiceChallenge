@@ -9,6 +9,7 @@
         state: "init",
 
         setInvoice: function (resp) {
+
             function calcUrl(invoice) {
                 return "bitcoin:"+ invoice.address +"?amount="+ invoice.btcPrice;
             }
