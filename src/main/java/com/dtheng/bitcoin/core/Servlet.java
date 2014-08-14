@@ -37,13 +37,7 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
-        System.out.println("doPost");
         if (req.getParameterMap().containsKey("create")) {
-            System.out.println("doPost create");
-            System.out.println("doPost value : "+ req.getParameter("value"));
-            System.out.println("doPost access_token : "+ Config.getProperty("bitpay_access_token"));
-            System.out.println("doPost password : "+ Config.getProperty("bitpay_password"));
-
 
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     ShellUtil.getNewProcess("new.sh",
@@ -53,7 +47,6 @@ public class Servlet extends HttpServlet {
             String inputLine;
             StringBuilder resp = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
                 resp.append(inputLine);
             }
             in.close();
@@ -74,7 +67,6 @@ public class Servlet extends HttpServlet {
             }
 
             if (!response.exceptionStatus) {
-                res.getWriter().write(gson.toJson(response));
                 res.setContentType("application/json");
                 return;
             }
@@ -82,7 +74,6 @@ public class Servlet extends HttpServlet {
         }
 
         if (req.getParameterMap().containsKey("id")) {
-            System.out.println("doPost id");
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(ShellUtil.getNewProcess("status.sh",
                             req.getParameter("id"),

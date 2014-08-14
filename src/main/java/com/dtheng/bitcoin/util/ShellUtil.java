@@ -24,7 +24,6 @@ public class ShellUtil {
 
     public static Process getNewProcess(String shellScript, String arg1, String arg2,
                                         String arg3) throws IOException {
-        System.out.println("location : "+ LOCATION);
         ProcessBuilder pb = new ProcessBuilder("/bin/bash",
                 LOCATION + shellScript, arg1, arg2, arg3);
         return pb.start();
