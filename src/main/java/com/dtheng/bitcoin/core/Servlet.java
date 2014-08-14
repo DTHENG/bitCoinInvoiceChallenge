@@ -3,17 +3,13 @@ package com.dtheng.bitcoin.core;
 import com.dtheng.bitcoin.model.BitPay;
 import com.dtheng.bitcoin.model.BitPayResponse;
 import com.dtheng.bitcoin.model.Invoice;
-import com.dtheng.bitcoin.util.ShellUtil;
 import com.dtheng.bitcoin.util.WebUtil;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
