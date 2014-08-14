@@ -37,7 +37,9 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
+        System.out.println("doPost");
         if (req.getParameterMap().containsKey("create")) {
+            System.out.println("doPost create");
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     ShellUtil.getNewProcess("new.sh",
                             req.getParameter("value"),
@@ -46,6 +48,7 @@ public class Servlet extends HttpServlet {
             String inputLine;
             StringBuilder resp = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
                 resp.append(inputLine);
             }
             in.close();
@@ -59,6 +62,7 @@ public class Servlet extends HttpServlet {
 
                 if (elm.attr("href").toString().contains("bitcoin:")) {
                     String href = elm.attr("href");
+                    System.out.println(href);
                     response.address = href.substring(href.indexOf(":") +1, href.indexOf("?"));
                     break;
                 }
@@ -73,6 +77,7 @@ public class Servlet extends HttpServlet {
         }
 
         if (req.getParameterMap().containsKey("id")) {
+            System.out.println("doPost id");
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(ShellUtil.getNewProcess("status.sh",
                             req.getParameter("id"),
@@ -81,6 +86,7 @@ public class Servlet extends HttpServlet {
             String inputLine;
             StringBuilder resp = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
                 resp.append(inputLine);
             }
             in.close();
@@ -94,6 +100,8 @@ public class Servlet extends HttpServlet {
 
                 if (elm.attr("href").toString().contains("bitcoin:")) {
                     String href = elm.attr("href");
+                    System.out.println(href);
+
                     response.address = href.substring(href.indexOf(":") +1, href.indexOf("?"));
                     break;
                 }
