@@ -101,7 +101,7 @@
         reset: function () {
             this.invoice = null;
             this.refresh(false);
-            $("#description").focus();
+            $("#amount").focus();
         },
 
         refresh: function (manual) {
