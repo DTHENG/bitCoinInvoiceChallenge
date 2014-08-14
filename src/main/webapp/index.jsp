@@ -60,7 +60,7 @@
                     &#160;
                 </div>
                 <div class="small-12 medium-6 large-4 columns" style="padding-top:10px;">
-                    <a id="createInvoice" class="button expand success" onclick="window.BitCoin.create($('#amount').val());">start</a>
+                    <a id="createInvoice" class="button expand success" onclick="window.BitCoin.create($('#amount').val());_gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start']);">start</a>
                 </div>
                 <div class="small-4 medium-3 columns hide-for-small">
                     &#160;
@@ -122,7 +122,7 @@
                     &#160;
                 </div>
                 <div class="small-12 medium-8 large-6 columns" style="padding-top:20px;padding-bottom:60px">
-                    <p style="margin:5px 0;"><a id="link" target="_blank"><span id="address"></span></a></p>
+                    <p style="margin:5px 0;"><a id="link" target="_blank" onclick="_gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Address']);"><span id="address"></span></a></p>
                     <p style="margin:5px 0;color:#aaa;"><span id="rate"></span> USD = 1 BTC</p>
                     <p id="expMsg" style="margin:5px 0;color:#aaa;">expires in <span id="expirationTime"></span></p>
                 </div>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="small-6 medium-4 large-3 columns">
                     <a id="refresh" onclick="window.BitCoin.refresh(true);" class="button secondary">refresh</a>
-                    <a id="newPayment" onclick="window.BitCoin.reset();" class="button success " style="display:none">start a new payment</a>
+                    <a id="newPayment" onclick="window.BitCoin.reset();_gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start New Payment']);" class="button success " style="display:none">start a new payment</a>
                 </div>
                 <div class="small-3 medium-2 columns hide-for-small">
                     &#160;
