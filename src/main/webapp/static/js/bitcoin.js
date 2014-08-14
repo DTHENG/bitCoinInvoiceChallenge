@@ -70,7 +70,6 @@
             }
             $("#createInvoice").addClass("disabled");
             $.post("/api?create", {value: amt}, function (resp, status) {
-                console.log("create",resp);
                 if (status !== "success") return;
                 if (resp.error) {
                     switch (resp.error.type) {
@@ -163,7 +162,6 @@
 
                     $.post("/api",{id: window.BitCoin.invoice.id},
                         function (resp, status) {
-                            console.log("get",resp);
                             if (status === "success") {
                                 window.BitCoin.setInvoice(resp);
                             }
