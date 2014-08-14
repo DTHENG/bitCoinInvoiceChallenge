@@ -102,6 +102,9 @@
             this.invoice = null;
             this.refresh(false);
             $("#amount").focus();
+            $("#expMsg").removeClass("hide");
+            $("#refresh").css("display","block");
+            $("#newPayment").css("display","none");
         },
 
         refresh: function (manual) {
@@ -197,6 +200,13 @@
                 $("#amount").focus();
                 break;
         }
+        $('#amount').keydown( function(e) {
+            var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+            if(key != 13) return;
+            e.preventDefault();
+            window.BitCoin.create($('#amount').val());
+            _gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start']);
+        });
     });
 
 })(window.jQuery, window, document);
