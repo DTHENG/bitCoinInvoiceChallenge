@@ -40,6 +40,11 @@ public class Servlet extends HttpServlet {
         System.out.println("doPost");
         if (req.getParameterMap().containsKey("create")) {
             System.out.println("doPost create");
+            System.out.println("doPost value : "+ req.getParameter("value"));
+            System.out.println("doPost access_token : "+ Config.getProperty("bitpay_access_token"));
+            System.out.println("doPost password : "+ Config.getProperty("bitpay_password"));
+
+
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     ShellUtil.getNewProcess("new.sh",
                             req.getParameter("value"),
