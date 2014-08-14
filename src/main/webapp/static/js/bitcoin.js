@@ -50,10 +50,12 @@
                 }
             }
 
-            if (resp.status === "expired") {
-                $("#expMsg").addClass("hide");
-                $("#refresh").css("display","none");
-                $("#newPayment").css("display","block");
+            switch (resp.status) {
+                case "expired":
+                case "paid":
+                    $("#expMsg").addClass("hide");
+                    $("#refresh").css("display","none");
+                    $("#newPayment").css("display","block");
             }
 
             window.BitCoin.state = "view";
