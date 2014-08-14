@@ -38,6 +38,7 @@ public class Servlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
         if (req.getParameterMap().containsKey("create")) {
+
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     ShellUtil.getNewProcess("new.sh",
                             req.getParameter("value"),
@@ -59,13 +60,13 @@ public class Servlet extends HttpServlet {
 
                 if (elm.attr("href").toString().contains("bitcoin:")) {
                     String href = elm.attr("href");
+                    System.out.println(href);
                     response.address = href.substring(href.indexOf(":") +1, href.indexOf("?"));
                     break;
                 }
             }
 
             if (!response.exceptionStatus) {
-                res.getWriter().write(gson.toJson(response));
                 res.setContentType("application/json");
                 return;
             }
@@ -81,6 +82,7 @@ public class Servlet extends HttpServlet {
             String inputLine;
             StringBuilder resp = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
                 resp.append(inputLine);
             }
             in.close();
@@ -94,6 +96,8 @@ public class Servlet extends HttpServlet {
 
                 if (elm.attr("href").toString().contains("bitcoin:")) {
                     String href = elm.attr("href");
+                    System.out.println(href);
+
                     response.address = href.substring(href.indexOf(":") +1, href.indexOf("?"));
                     break;
                 }
