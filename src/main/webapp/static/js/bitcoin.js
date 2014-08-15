@@ -62,6 +62,7 @@
         },
 
         create: function (amt) {
+            _gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start']);
             if (amt === "" || isNaN(amt)) {
                 window.alert("please enter an amount");
                 $("#amount").focus().select();
@@ -98,6 +99,7 @@
         },
 
         reset: function () {
+            _gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start New Payment']);
             this.invoice = null;
             this.refresh(false);
             $("#description").focus();
