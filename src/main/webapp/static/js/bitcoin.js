@@ -100,8 +100,12 @@
 
         reset: function () {
             this.invoice = null;
+            this.state = "init";
             this.refresh(false);
-            $("#description").focus();
+            $("#amount").focus();
+            $("#expMsg").removeClass("hide");
+            $("#refresh").css("display","block");
+            $("#newPayment").css("display","none");
         },
 
         refresh: function (manual) {
@@ -139,32 +143,29 @@
                         switch (attr) {
                             case "qr":
                                 if (window.BitCoin.invoice.status !== "awaiting payment") break;
-                                if (objToUpdate.attr("src") !== newValue) {
-                                    objToUpdate.attr("src", newValue);
-                                }
+                                if (objToUpdate.attr("src") === newValue) break;
+                                if (newValue.indexOf("bitcoin:undefined") > 0) break;
+                                objToUpdate.attr("src", newValue);
                                 break;
                             case "status_color":
-                                if (objToUpdate.css("border-color") !== newValue) {
-                                    objToUpdate.css("border-color", newValue);
-                                }
+                                if (objToUpdate.css("border-color") == newValue) break;
+                                objToUpdate.css("border-color", newValue);
                                 break;
                             case "link":
-                                if (objToUpdate.attr("href") !== newValue) {
-                                    objToUpdate.attr("href", newValue);
-                                }
+                                if (objToUpdate.attr("href") === newValue) break;
+                                objToUpdate.attr("href", newValue);
                                 break;
                             default:
-                                if (objToUpdate.html() !== newValue) {
-                                    objToUpdate.html(newValue);
-                                }
+                                if (objToUpdate.html() === newValue) break;
+                                objToUpdate.html(newValue);
                         }
                     }
 
                     $.post("/api",{id: window.BitCoin.invoice.id},
                         function (resp, status) {
-                            if (status === "success") {
-                                window.BitCoin.setInvoice(resp);
-                            }
+                            if (status !== "success" &&
+                                window.BitCoin.state !== "awaiting payment") return;
+                            window.BitCoin.setInvoice(resp);
                         }
                     );
             }
@@ -197,6 +198,13 @@
                 $("#amount").focus();
                 break;
         }
+        $('#amount').keydown( function(e) {
+            var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+            if(key != 13) return;
+            e.preventDefault();
+            window.BitCoin.create($('#amount').val());
+            _gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start']);
+        });
     });
 
 })(window.jQuery, window, document);
