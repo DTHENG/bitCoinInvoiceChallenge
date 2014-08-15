@@ -2,4 +2,4 @@
 
 [bitcoin.dtheng.com](http://bitcoin.dtheng.com)
 
-`v0.5`
+`v0.6`
