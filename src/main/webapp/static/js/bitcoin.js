@@ -100,6 +100,7 @@
 
         reset: function () {
             this.invoice = null;
+            this.state = "init";
             this.refresh(false);
             $("#amount").focus();
             $("#expMsg").removeClass("hide");
@@ -162,9 +163,9 @@
 
                     $.post("/api",{id: window.BitCoin.invoice.id},
                         function (resp, status) {
-                            if (status === "success") {
-                                window.BitCoin.setInvoice(resp);
-                            }
+                            if (status !== "success" &&
+                                window.BitCoin.state !== "awaiting payment") return;
+                            window.BitCoin.setInvoice(resp);
                         }
                     );
             }
