@@ -104,11 +104,12 @@
         },
 
         refresh: function (manual) {
-
-            if (manual) $("#refresh").addClass("disabled");
+            if (manual) {
+                $("#refresh").addClass("disabled");
+                _gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Refresh']);
+            }
             var pages = $(".page");
             var currentState = window.BitCoin.state;
-
             switch (currentState) {
                 case "view":
 
