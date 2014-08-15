@@ -1,0 +1,99 @@
+.start_payment_title {
+    text-align:center;
+}
+
+.start_payment_title h4 {
+    font-weight:500;
+}
+
+.start_form_amount_label {
+    margin-bottom:4px;
+}
+
+.start_form_currency_label {
+    padding-top:35px;
+}
+
+.start_form_button_wrap {
+    padding-top:10px;
+}
+
+.invoice_header {
+    text-align:center;
+}
+
+.invoice_header h1 {
+    font-size:60px;
+    font-weight:200;
+    margin-bottom:0;
+}
+
+.invoice_header h4.btcPrice {
+    font-weight:500;
+}
+
+.invoice_header h4.btcPaid {
+    width:100%;
+    min-height:40px;
+    color:#aaa;
+    font-weight:500;
+}
+
+.invoice_qr {
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.invoice_qr img {
+    width:100%;
+    min-height:293px;
+    background:#F7F7F7;
+}
+
+.invoice_status {
+    text-align: center;
+    padding-top:50px;
+}
+
+.invoice_status h4 {
+    font-weight:500;
+}
+
+.invoice_bar hr {
+    border-width:2px 0 0 0;
+}
+
+.invoice_info {
+    padding-top:20px;
+    padding-bottom:60px;
+}
+
+.invoice_info p.address {
+    margin:5px 0;
+}
+
+.invoice_info p.exchange_rate,
+.invoice_info p.expiration {
+    margin:5px 0;
+    color:#aaa;
+}
+
+.newPayment {
+    display:none;
+}
+
+body.expired .invoice_status h4{
+    color: #f00;
+}
+
+body.expired .invoice_bar {
+    border-color: #f00;
+}
+
+body.paid .invoice_status h4{
+    color: #43ac6a;
+}
+
+body.paid .invoice_bar {
+    border-color: #43ac6a;
+}
