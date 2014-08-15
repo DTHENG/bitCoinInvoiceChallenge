@@ -81,3 +81,19 @@
 .newPayment {
     display:none;
 }
+
+body.expired .invoice_status h4{
+    color: #f00;
+}
+
+body.expired .invoice_bar {
+    border-color: #f00;
+}
+
+body.paid .invoice_status h4{
+    color: #43ac6a;
+}
+
+body.paid .invoice_bar {
+    border-color: #43ac6a;
+}

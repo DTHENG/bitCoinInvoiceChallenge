@@ -24,14 +24,9 @@
                         return invoice.status;
                 }
             }
+            // depreciated
             function calcStatusColor(invoice) {
                 switch (invoice.status) {
-                    case "awaiting payment":
-                        return "#008cba";
-                    case "paid":
-                        return "#43ac6a";
-                    case "expired":
-                        return "#f00";
                     default:
                         return "#aaa";
                 }
@@ -50,7 +45,6 @@
                     window.BitCoin.invoice.expirationTime = minutes + " minute" + (minutes != 1 ? "s" : "");
                 }
             }
-
             switch (resp.status) {
                 case "expired":
                 case "paid":
@@ -58,7 +52,6 @@
                     $("#refresh").css("display","none");
                     $("#newPayment").css("display","block");
             }
-
             window.BitCoin.state = "view";
         },
 
@@ -151,7 +144,7 @@
                                 break;
                             case "status_color":
                                 if (objToUpdate.css("border-color") == newValue) break;
-                                objToUpdate.css("border-color", newValue);
+                                $("body").attr("class",window.BitCoin.invoice.status);
                                 break;
                             case "link":
                                 if (objToUpdate.attr("href") === newValue) break;
