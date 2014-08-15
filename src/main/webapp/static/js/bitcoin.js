@@ -142,9 +142,9 @@
                         var objToUpdate = $("#" + attr);
                         switch (attr) {
                             case "qr":
-                                if (window.BitCoin.invoice.status !== "awaiting payment" &&
-                                    newValue.indexOf("undefined") == -1 &&
-                                    objToUpdate.attr("src") === newValue) break;
+                                if (window.BitCoin.invoice.status !== "awaiting payment") break;
+                                if (objToUpdate.attr("src") === newValue) break;
+                                if (newValue.indexOf("bitcoin:undefined") > 0) break;
                                 objToUpdate.attr("src", newValue);
                                 break;
                             case "status_color":

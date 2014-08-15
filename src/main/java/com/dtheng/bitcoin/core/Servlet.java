@@ -64,6 +64,7 @@ public class Servlet extends HttpServlet {
 
     private final static BitPayResponse toBitPayResponse(Invoice invoice) {
         BitPayResponse response = new BitPayResponse();
+        if (invoice == null) return response;
         response.btcPrice = invoice.getBtcPrice();
         response.status = invoice.getStatus();
         response.price = invoice.getPrice();
