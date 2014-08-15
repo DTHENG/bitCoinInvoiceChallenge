@@ -135,7 +135,7 @@
                     &#160;
                 </div>
                 <div class="small-6 medium-4 large-3 columns">
-                    <a id="refresh" onclick="window.BitCoin.refresh(true);" class="button secondary">refresh</a>
+                    <a id="refresh" onclick="window.BitCoin.refresh(true);_gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Refresh']);" class="button secondary">refresh</a>
                     <a id="newPayment" onclick="window.BitCoin.reset();_gaq.push(['_trackEvent', 'BitCoin', 'Links', 'Start New Payment']);" class="button success " style="display:none">start a new payment</a>
                 </div>
                 <div class="small-3 medium-2 columns hide-for-small">
