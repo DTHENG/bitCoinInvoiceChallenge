@@ -86,7 +86,7 @@ body.expired .invoice_status h4{
     color: #f00;
 }
 
-body.expired .invoice_bar {
+body.expired .invoice_bar hr {
     border-color: #f00;
 }
 
@@ -94,6 +94,6 @@ body.paid .invoice_status h4{
     color: #43ac6a;
 }
 
-body.paid .invoice_bar {
+body.paid .invoice_bar hr {
     border-color: #43ac6a;
 }
