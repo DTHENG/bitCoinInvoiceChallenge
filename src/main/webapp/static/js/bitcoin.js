@@ -141,25 +141,22 @@
                         var objToUpdate = $("#" + attr);
                         switch (attr) {
                             case "qr":
-                                if (window.BitCoin.invoice.status !== "awaiting payment") break;
-                                if (objToUpdate.attr("src") !== newValue) {
-                                    objToUpdate.attr("src", newValue);
-                                }
+                                if (window.BitCoin.invoice.status !== "awaiting payment" &&
+                                    newValue.indexOf("undefined") == -1 &&
+                                    objToUpdate.attr("src") === newValue) break;
+                                objToUpdate.attr("src", newValue);
                                 break;
                             case "status_color":
-                                if (objToUpdate.css("border-color") !== newValue) {
-                                    objToUpdate.css("border-color", newValue);
-                                }
+                                if (objToUpdate.css("border-color") == newValue) break;
+                                objToUpdate.css("border-color", newValue);
                                 break;
                             case "link":
-                                if (objToUpdate.attr("href") !== newValue) {
-                                    objToUpdate.attr("href", newValue);
-                                }
+                                if (objToUpdate.attr("href") === newValue) break;
+                                objToUpdate.attr("href", newValue);
                                 break;
                             default:
-                                if (objToUpdate.html() !== newValue) {
-                                    objToUpdate.html(newValue);
-                                }
+                                if (objToUpdate.html() === newValue) break;
+                                objToUpdate.html(newValue);
                         }
                     }
 
